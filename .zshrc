@@ -14,6 +14,13 @@ fi
 #  Plugins 
 # oh-my-zsh plugins are loaded  in ~/.hyde.zshrc file, see the file for more information
 
+export ZSH="$HOME/.oh-my-zsh"
+ZSH_THEME="powerlevel10k/powerlevel10k"
+plugins=(git zsh-autosuggestions zsh-syntax-highlighting)
+fpath+=${ZSH_CUSTOM:-${ZSH:-~/.oh-my-zsh}/custom}/plugins/zsh-completions/src
+autoload -U compinit && compinit
+source $ZSH/oh-my-zsh.sh
+
 #  Aliases & Functions 
 # Add aliases here
 # alias HotDown='cd ~/Documents/Scripting; ./Hotspot_Down.sh; cd ~'
@@ -89,7 +96,16 @@ alias aur-upgrade='yay -Sua'        # Only upgrade AUR packages
 alias nvtest='hyprctl dispatch workspace r+1 && neovide'
 
 # Utilities
-alias neovim='hyprctl dispatch workspace emptynm && neovide'
+
+neovim() {
+  if command -v hyprctl &> /dev/null; then
+    # If hyprctl exists, run the command for Hyprland
+    hyprctl dispatch workspace emptynm && neovide
+  else
+    # Otherwise, just run neovide
+    neovide --no-multigrid
+  fi
+}
 alias nv="echo 'Starting Neovim' && neovim"
 alias vim="nvim"
 alias snv="sudo nvim"
