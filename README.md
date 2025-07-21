@@ -1,6 +1,6 @@
 # Dotfiles
 
-Welcome to my dotfiles, feel free to use it. All you need to do is simple.
+Welcome to my dotfiles, feel free to use it. All you need to do is simple.<br>
 Run the command below, or if you're curious you can read `setup.sh` first
 
 ```
