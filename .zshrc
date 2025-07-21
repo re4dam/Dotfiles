@@ -100,11 +100,11 @@ alias nvtest='hyprctl dispatch workspace r+1 && neovide'
 
 neovim() {
   if command -v hyprctl &> /dev/null; then
-    # If hyprctl exists, run the command for Hyprland
-    hyprctl dispatch workspace emptynm && neovide
+    # If hyprctl exists, run the command for Hyprland and pass arguments
+    hyprctl dispatch workspace emptynm && neovide "$@"
   else
-    # Otherwise, just run neovide
-    neovide --no-multigrid
+    # Otherwise, just run neovide with its flag and pass arguments
+    neovide --no-multigrid "$@"
   fi
 }
 alias nv="echo 'Starting Neovim' && neovim"
@@ -247,6 +247,8 @@ export SPARK_HOME=~/spark-3.5.5-bin-hadoop3
 export PATH=$PATH:$SPARK_HOME/bin:$SPARK_HOME/sbin
 
 export PATH="$HOME/flutter/bin:$PATH"
+
+export PATH="$HOME/Development/Progrm/bash:$PATH"
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
