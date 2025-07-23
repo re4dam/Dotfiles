@@ -45,7 +45,7 @@ fftheme() {
 alias eyota='sudo mount -t ntfs-3g -o rw,uid=$(id -u),gid=$(id -g),iocharset=utf8 /dev/sda1 /mnt/readam'
 alias lenovo='sudo mount -t ntfs-3g -o rw,uid=$(id -u),gid=$(id -g),iocharset=utf8 /dev/sdb2 /mnt/takeaway'
 alias jakdam='sudo mount -t ntfs-3g -o rw,uid=$(id -u),gid=$(id -g),iocharset=utf8 /dev/nvme0n1p3 /mnt/windows'
-alias tmuxrun='tmux attach || tmux new'
+alias excalibur='tmux attach || tmux new'
 # alias set-ip='~/Documents/Scripting/IP-LINK.sh'
 
 # Directory-related commands
