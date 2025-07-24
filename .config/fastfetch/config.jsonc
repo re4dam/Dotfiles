@@ -9,28 +9,39 @@
   },
   "modules": [
     {
-        "type": "os",
-        "format": "{3}",
-        "key": "Styles"
-    },
-    {
-        "type": "memory",
-        "key": "Remembrance"
-    },
-    {
-        "type": "cpu",
-        "key": "brain power"
-    },
-    {
         "type": "title",
-         "key": "=>",
-            "keycolor": "blue",
+        "key": " ",
+        "keycolor": "blue",
         "format": "{6} {7} {8}"
     },
     {
+        "type": "os",
+        "format": "{3}",
+        "key": " 󰄚"
+    },
+    {
+        "type": "memory",
+        "key": " 󰌱",
+        "format": "{1} / {2} ({3})"
+    },
+    {
+        "type": "cpu",
+        "key": " "
+    },
+    {
         "type": "terminal",
-        "key": "Excalibur",
+        "key": " 󰓥",
         "format": "{5}"
+    },
+    {
+        "type": "shell",
+        "key": " ",
+        "format": "{1}"
+    },
+    {
+        "type": "disk",
+        "key": " ",
+        "format": "{1} / {2} ({3})"
     },
     {
         "type": "colors",

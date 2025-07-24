@@ -5,6 +5,8 @@ require("lspconfig").pyright.setup({
   filetypes = { "python" },
 })
 
+vim.lsp.enable("bashls")
+
 return {
   {
     "neovim/nvim-lspconfig",
