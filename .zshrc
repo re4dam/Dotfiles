@@ -65,6 +65,10 @@ alias cddpbo='newhome; cd DPBO/'
 alias cdc='cdprog; cd C/'
 alias cdmnt='cd /mnt/'
 
+devs() {
+    cd "$HOME/Development/$1" || echo "Directory not found!"
+}
+
 drive() {
     cd "/mnt/$1" || echo "Drive not found"
 }
@@ -104,7 +108,7 @@ neovim() {
     hyprctl dispatch workspace emptynm && neovide "$@"
   else
     # Otherwise, just run neovide with its flag and pass arguments
-    neovide --no-multigrid "$@"
+    neovide "$@"
   fi
 }
 alias nv="echo 'Starting Neovim' && neovim"
@@ -118,7 +122,7 @@ alias javall="javac *.java"
 alias runjava="java *.java"
 alias ref='source ~/.zshrc; clr'
 alias xenv='env SDL_VIDEODRIVER=x11'
-alias katalon='hyprctl dispatch workspace emptynm && ~/Katalon_Studio_Linux_64-10.2.0/katalon'
+alias calc="qalc"
 # alias gitrem="docs; cd Scripting/; vim; home"
 
 # Configurations Shortcut
@@ -252,3 +256,5 @@ export PATH="$HOME/Development/Progrm/bash:$PATH"
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+PATH=/home/readam/.nimble/bin:/home/readam/Development/Progrm/bash:/home/readam/flutter/bin:/home/readam/Android/Sdk/emulator:/home/readam/Android/Sdk/platform-tools:/home/readam/Android/Sdk/cmdline-tools/latest/bin:/usr/lib/jvm/java-24-openjdk/bin:/home/readam/flutter/bin:/home/readam/Android/Sdk/emulator:/home/readam/Android/Sdk/platform-tools:/home/readam/Android/Sdk/cmdline-tools/latest/bin:/usr/lib/jvm/java-24-openjdk/bin:/home/readam/Development/Progrm/bash:/home/readam/flutter/bin:/home/readam/Android/Sdk/emulator:/home/readam/Android/Sdk/platform-tools:/home/readam/Android/Sdk/cmdline-tools/latest/bin:/usr/lib/jvm/java-24-openjdk/bin:/home/readam/Development/Progrm/bash:/home/readam/flutter/bin:/home/readam/Android/Sdk/emulator:/home/readam/Android/Sdk/platform-tools:/home/readam/Android/Sdk/cmdline-tools/latest/bin:/usr/lib/jvm/java-24-openjdk/bin:/usr/local/sbin:/usr/local/bin:/usr/bin:/var/lib/flatpak/exports/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl:/home/readam/Hadoop/hadoop-3.3.6//bin:/home/readam/.pub-cache/bin:/home/readam/Hadoop/apache-hive-4.0.1-bin/bin:/home/readam/pig/bin/:/home/readam/spark-3.5.5-bin-hadoop3/bin:/home/readam/spark-3.5.5-bin-hadoop3/sbin:/home/readam/Hadoop/hadoop-3.3.6//bin:/home/readam/.pub-cache/bin:/home/readam/Hadoop/apache-hive-4.0.1-bin/bin:/home/readam/pig/bin/:/home/readam/spark-3.5.5-bin-hadoop3/bin:/home/readam/spark-3.5.5-bin-hadoop3/sbin:/home/readam/Hadoop/hadoop-3.3.6//bin:/home/readam/.pub-cache/bin:/home/readam/Hadoop/apache-hive-4.0.1-bin/bin:/home/readam/pig/bin/:/home/readam/spark-3.5.5-bin-hadoop3/bin:/home/readam/spark-3.5.5-bin-hadoop3/sbin:/home/readam/Hadoop/hadoop-3.3.6//bin:/home/readam/.pub-cache/bin:/home/readam/Hadoop/apache-hive-4.0.1-bin/bin:/home/readam/pig/bin/:/home/readam/spark-3.5.5-bin-hadoop3/bin:/home/readam/spark-3.5.5-bin-hadoop3/sbin
+PATH=/home/readam/.nimble/bin:/home/readam/Development/Progrm/bash:/home/readam/flutter/bin:/home/readam/Android/Sdk/emulator:/home/readam/Android/Sdk/platform-tools:/home/readam/Android/Sdk/cmdline-tools/latest/bin:/usr/lib/jvm/java-24-openjdk/bin:/home/readam/flutter/bin:/home/readam/Android/Sdk/emulator:/home/readam/Android/Sdk/platform-tools:/home/readam/Android/Sdk/cmdline-tools/latest/bin:/usr/lib/jvm/java-24-openjdk/bin:/home/readam/Development/Progrm/bash:/home/readam/flutter/bin:/home/readam/Android/Sdk/emulator:/home/readam/Android/Sdk/platform-tools:/home/readam/Android/Sdk/cmdline-tools/latest/bin:/usr/lib/jvm/java-24-openjdk/bin:/home/readam/Development/Progrm/bash:/home/readam/flutter/bin:/home/readam/Android/Sdk/emulator:/home/readam/Android/Sdk/platform-tools:/home/readam/Android/Sdk/cmdline-tools/latest/bin:/usr/lib/jvm/java-24-openjdk/bin:/usr/local/sbin:/usr/local/bin:/usr/bin:/var/lib/flatpak/exports/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl:/home/readam/Hadoop/hadoop-3.3.6//bin:/home/readam/.pub-cache/bin:/home/readam/Hadoop/apache-hive-4.0.1-bin/bin:/home/readam/pig/bin/:/home/readam/spark-3.5.5-bin-hadoop3/bin:/home/readam/spark-3.5.5-bin-hadoop3/sbin:/home/readam/Hadoop/hadoop-3.3.6//bin:/home/readam/.pub-cache/bin:/home/readam/Hadoop/apache-hive-4.0.1-bin/bin:/home/readam/pig/bin/:/home/readam/spark-3.5.5-bin-hadoop3/bin:/home/readam/spark-3.5.5-bin-hadoop3/sbin:/home/readam/Hadoop/hadoop-3.3.6//bin:/home/readam/.pub-cache/bin:/home/readam/Hadoop/apache-hive-4.0.1-bin/bin:/home/readam/pig/bin/:/home/readam/spark-3.5.5-bin-hadoop3/bin:/home/readam/spark-3.5.5-bin-hadoop3/sbin:/home/readam/Hadoop/hadoop-3.3.6//bin:/home/readam/.pub-cache/bin:/home/readam/Hadoop/apache-hive-4.0.1-bin/bin:/home/readam/pig/bin/:/home/readam/spark-3.5.5-bin-hadoop3/bin:/home/readam/spark-3.5.5-bin-hadoop3/sbin

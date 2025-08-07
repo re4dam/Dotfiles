@@ -16,3 +16,5 @@ map("n", "<C-M-q>", "<CMD> qa <CR>", { desc = "Quit all file" })
 
 map("n", "ngt", "<CMD> tabnew <CR>", { desc = "Creates a new Tab" })
 map("t", "<Esc>", [[<C-\><C-n>]], { desc = "Exit terminal mode" })
+
+map("n", "<leader>bn", "<CMD> enew <CR>", { desc = "Creates new empty buffer" })
