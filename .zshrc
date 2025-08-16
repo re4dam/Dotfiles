@@ -49,32 +49,30 @@ alias excalibur='tmux attach || tmux new'
 # alias set-ip='~/Documents/Scripting/IP-LINK.sh'
 
 # Directory-related commands
-alias home='cd'
-alias newhome='cd /mnt/windows/Zaki-Adam/'
-alias docs='cd ~/Documents'
-alias newdocs='newhome; cd Documents'
-alias downloads='cd ~/Downloads'
-alias newdownloads='newhome; cd Download'
-alias web='cd /var/www/html'
-alias ..='cd ..'
-alias main='cd ~/ZakiAdam/Zaki-Adam'
-alias upi='newhome; cd UPI'
-alias hiburan='newhome; cd Hiburan'
-alias cdprog='newhome; cd Progrm/'
-alias cddpbo='newhome; cd DPBO/'
-alias cdc='cdprog; cd C/'
-alias cdmnt='cd /mnt/'
+alias home='z'
+alias newhome='z /mnt/windows/Zaki-Adam/'
+alias docs='z ~/Documents'
+alias downloads='z ~/Downloads'
+alias web='z /var/www/html'
+alias ..='z ..'
+alias main='z ~/ZakiAdam/Zaki-Adam'
+alias upi='newhome; z UPI'
+alias hiburan='newhome; z Hiburan'
+alias cdprog='newhome; z Progrm/'
+alias cddpbo='newhome; z DPBO/'
+alias cdc='cdprog; z C/'
+alias cdmnt='z /mnt/'
 
 devs() {
-    cd "$HOME/Development/$1" || echo "Directory not found!"
+    z "$HOME/Development/$1" || echo "Directory not found!"
 }
 
 drive() {
-    cd "/mnt/$1" || echo "Drive not found"
+    z "/mnt/$1" || echo "Drive not found"
 }
 
 goto() {
-  cd "/mnt/windows/Zaki-Adam/$1" || echo "Directory not found"
+  z "/mnt/windows/Zaki-Adam/$1" || echo "Directory not found"
 }
 # Usage: goto DPBO, goto Hiburan
 
@@ -101,7 +99,6 @@ alias aur-upgrade='yay -Sua'        # Only upgrade AUR packages
 alias nvtest='hyprctl dispatch workspace r+1 && neovide'
 
 # Utilities
-
 neovim() {
   if command -v hyprctl &> /dev/null; then
     # If hyprctl exists, run the command for Hyprland and pass arguments
@@ -115,15 +112,14 @@ alias nv="echo 'Starting Neovim' && neovim"
 alias vim="nvim"
 alias snv="sudo nvim"
 alias clr="clear"
-alias jurnal="newhome; cd Documents/personal-diary/; nvim; newhome"
+alias jurnal="newhome; z Documents/personal-diary/; nvim; newhome"
 alias runphp="php -S localhost:8000"
 alias dcompile="dart compile exe"
 alias javall="javac *.java"
 alias runjava="java *.java"
-alias ref='source ~/.zshrc; clr'
 alias xenv='env SDL_VIDEODRIVER=x11'
 alias calc="qalc"
-# alias gitrem="docs; cd Scripting/; vim; home"
+alias exca="excalibur"
 
 # Configurations Shortcut
 alias zshconf="nv ~/.zshrc"
@@ -136,17 +132,17 @@ alias tmuxconf="nv ~/.tmux.conf"
 
 # Fungsi spesifik (lebih mudah dibaca untuk kasus ini)
 nvconf() {
-    (cd ~/.config/nvim/ && nv "$@") # Menggunakan subshell ( ) agar direktori kembali setelah selesai
+    (z ~/.config/nvim/ && nv "$@") # Menggunakan subshell ( ) agar direktori kembali setelah selesai
                                     # "$@" meneruskan semua argumen ke nv
 }
 hyprconf() {
-    (cd ~/.config/hypr/ && nv "$@")
+    (z ~/.config/hypr/ && nv "$@")
 }
 ffconf() {
-    (cd ~/.config/fastfetch/ && nv "$@")
+    (z ~/.config/fastfetch/ && nv "$@")
 }
 waybarconf() {
-    (cd ~/.config/waybar/ && nv "$@")
+    (z ~/.config/waybar/ && nv "$@")
 }
 
 # custom Clock commands
@@ -166,15 +162,32 @@ alias Linkwlan1="sudo ip link set wlan1 down; sudo ip link set wlan1 up"
 alias miceon="hyprctl keyword 'device[synps/2-synaptics-touchpad]:enabled' 'true'"
 alias miceoff="hyprctl keyword 'device[synps/2-synaptics-touchpad]:enabled' 'false'"
 
-# zsh lsd
-# alias ls="lsd"
-# alias ll="lsd -l"
-# alias la="lsd -la"
+# zsh eza
+alias ls="eza --icons"
+alias ll="eza --icons --long"
+alias la="eza --icons --long --all"
 
-# zsh exa
-alias ls="exa --icons"
-alias ll="exa --icons --long"
-alias la="exa --icons --long --all"
+# zdd: Find a directory and cd into it, now with a directory content preview.
+zdd() {
+  local dir
+  # The --preview option now shows the contents of the highlighted directory
+  dir=$(fd --type d --hidden --exclude .git . | fzf --preview '~/.local/bin/preview.sh {}')
+
+  if [[ -n "$dir" ]]; then
+    z "$dir"
+  fi
+}
+
+# zdf: Find a file and cd to its directory, now with a file content preview.
+zdf() {
+  local file_path
+  # We add the --preview option to fzf
+  file_path=$(fd --type f --hidden --exclude .git . | fzf --preview '~/.local/bin/preview.sh {}')
+
+  if [[ -n "$file_path" ]]; then
+    z "$(dirname "$file_path")"
+  fi
+}
 
 # aliases systemd
 alias sd='sudo systemctl'
@@ -258,3 +271,5 @@ export PATH="$HOME/Development/Progrm/bash:$PATH"
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 PATH=/home/readam/.nimble/bin:/home/readam/Development/Progrm/bash:/home/readam/flutter/bin:/home/readam/Android/Sdk/emulator:/home/readam/Android/Sdk/platform-tools:/home/readam/Android/Sdk/cmdline-tools/latest/bin:/usr/lib/jvm/java-24-openjdk/bin:/home/readam/flutter/bin:/home/readam/Android/Sdk/emulator:/home/readam/Android/Sdk/platform-tools:/home/readam/Android/Sdk/cmdline-tools/latest/bin:/usr/lib/jvm/java-24-openjdk/bin:/home/readam/Development/Progrm/bash:/home/readam/flutter/bin:/home/readam/Android/Sdk/emulator:/home/readam/Android/Sdk/platform-tools:/home/readam/Android/Sdk/cmdline-tools/latest/bin:/usr/lib/jvm/java-24-openjdk/bin:/home/readam/Development/Progrm/bash:/home/readam/flutter/bin:/home/readam/Android/Sdk/emulator:/home/readam/Android/Sdk/platform-tools:/home/readam/Android/Sdk/cmdline-tools/latest/bin:/usr/lib/jvm/java-24-openjdk/bin:/usr/local/sbin:/usr/local/bin:/usr/bin:/var/lib/flatpak/exports/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl:/home/readam/Hadoop/hadoop-3.3.6//bin:/home/readam/.pub-cache/bin:/home/readam/Hadoop/apache-hive-4.0.1-bin/bin:/home/readam/pig/bin/:/home/readam/spark-3.5.5-bin-hadoop3/bin:/home/readam/spark-3.5.5-bin-hadoop3/sbin:/home/readam/Hadoop/hadoop-3.3.6//bin:/home/readam/.pub-cache/bin:/home/readam/Hadoop/apache-hive-4.0.1-bin/bin:/home/readam/pig/bin/:/home/readam/spark-3.5.5-bin-hadoop3/bin:/home/readam/spark-3.5.5-bin-hadoop3/sbin:/home/readam/Hadoop/hadoop-3.3.6//bin:/home/readam/.pub-cache/bin:/home/readam/Hadoop/apache-hive-4.0.1-bin/bin:/home/readam/pig/bin/:/home/readam/spark-3.5.5-bin-hadoop3/bin:/home/readam/spark-3.5.5-bin-hadoop3/sbin:/home/readam/Hadoop/hadoop-3.3.6//bin:/home/readam/.pub-cache/bin:/home/readam/Hadoop/apache-hive-4.0.1-bin/bin:/home/readam/pig/bin/:/home/readam/spark-3.5.5-bin-hadoop3/bin:/home/readam/spark-3.5.5-bin-hadoop3/sbin
 PATH=/home/readam/.nimble/bin:/home/readam/Development/Progrm/bash:/home/readam/flutter/bin:/home/readam/Android/Sdk/emulator:/home/readam/Android/Sdk/platform-tools:/home/readam/Android/Sdk/cmdline-tools/latest/bin:/usr/lib/jvm/java-24-openjdk/bin:/home/readam/flutter/bin:/home/readam/Android/Sdk/emulator:/home/readam/Android/Sdk/platform-tools:/home/readam/Android/Sdk/cmdline-tools/latest/bin:/usr/lib/jvm/java-24-openjdk/bin:/home/readam/Development/Progrm/bash:/home/readam/flutter/bin:/home/readam/Android/Sdk/emulator:/home/readam/Android/Sdk/platform-tools:/home/readam/Android/Sdk/cmdline-tools/latest/bin:/usr/lib/jvm/java-24-openjdk/bin:/home/readam/Development/Progrm/bash:/home/readam/flutter/bin:/home/readam/Android/Sdk/emulator:/home/readam/Android/Sdk/platform-tools:/home/readam/Android/Sdk/cmdline-tools/latest/bin:/usr/lib/jvm/java-24-openjdk/bin:/usr/local/sbin:/usr/local/bin:/usr/bin:/var/lib/flatpak/exports/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl:/home/readam/Hadoop/hadoop-3.3.6//bin:/home/readam/.pub-cache/bin:/home/readam/Hadoop/apache-hive-4.0.1-bin/bin:/home/readam/pig/bin/:/home/readam/spark-3.5.5-bin-hadoop3/bin:/home/readam/spark-3.5.5-bin-hadoop3/sbin:/home/readam/Hadoop/hadoop-3.3.6//bin:/home/readam/.pub-cache/bin:/home/readam/Hadoop/apache-hive-4.0.1-bin/bin:/home/readam/pig/bin/:/home/readam/spark-3.5.5-bin-hadoop3/bin:/home/readam/spark-3.5.5-bin-hadoop3/sbin:/home/readam/Hadoop/hadoop-3.3.6//bin:/home/readam/.pub-cache/bin:/home/readam/Hadoop/apache-hive-4.0.1-bin/bin:/home/readam/pig/bin/:/home/readam/spark-3.5.5-bin-hadoop3/bin:/home/readam/spark-3.5.5-bin-hadoop3/sbin:/home/readam/Hadoop/hadoop-3.3.6//bin:/home/readam/.pub-cache/bin:/home/readam/Hadoop/apache-hive-4.0.1-bin/bin:/home/readam/pig/bin/:/home/readam/spark-3.5.5-bin-hadoop3/bin:/home/readam/spark-3.5.5-bin-hadoop3/sbin
+
+eval "$(zoxide init zsh)"

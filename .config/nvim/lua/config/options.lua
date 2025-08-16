@@ -49,6 +49,9 @@ vim.api.nvim_create_user_command("NameWindow", function(opts)
   vim.o.titlestring = opts.args .. " - %t %m"
 end, { nargs = 1, desc = "Set a custom name for the Neovide window title" })
 
+--  Creates a command that resets the title of a window
 vim.api.nvim_create_user_command("ResetTitle", function()
   vim.o.titlestring = "Neovide [PID:%{getpid()}] - %t %m"
 end, { nargs = 0, desc = "Reset the Neovide window title to the default" })
+
+vim.g.lazyvim_picker = "telescope"
