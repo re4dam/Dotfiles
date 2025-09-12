@@ -41,9 +41,12 @@ fftheme() {
 }
 # Usage: fftheme 2 -> equivalent to `fastfetch --config hypr2`
 
-# alias eyota='~/Documents/Scripting/eyota.sh'
-alias eyota='sudo mount -t ntfs-3g -o rw,uid=$(id -u),gid=$(id -g),iocharset=utf8 /dev/sda1 /mnt/readam'
-alias lenovo='sudo mount -t ntfs-3g -o rw,uid=$(id -u),gid=$(id -g),iocharset=utf8 /dev/sdb2 /mnt/takeaway'
+eyota() {
+    sudo mount -t ntfs-3g -o rw,uid=$(id -u),gid=$(id -g),iocharset=utf8 /dev/sda1 /mnt/readam || sudo mount -t ntfs-3g -o rw,uid=$(id -u),gid=$(id -g),iocharset=utf8 /dev/sdb1 /mnt/readam
+}
+lenovo() {
+    sudo mount -t ntfs-3g -o rw,uid=$(id -u),gid=$(id -g),iocharset=utf8 /dev/sda2 /mnt/takeaway || sudo mount -t ntfs-3g -o rw,uid=$(id -u),gid=$(id -g),iocharset=utf8 /dev/sdb2 /mnt/takeaway
+}
 alias jakdam='sudo mount -t ntfs-3g -o rw,uid=$(id -u),gid=$(id -g),iocharset=utf8 /dev/nvme0n1p3 /mnt/windows'
 alias excalibur='tmux attach || tmux new'
 # alias set-ip='~/Documents/Scripting/IP-LINK.sh'
