@@ -5,12 +5,7 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
-
-# Add user configurations here
-# For HyDE not to touch your beloved configurations,
-# we added 2 files to the project structure:
-# 1. ~/.hyde.zshrc - for customizing the shell related hyde configurations
-# 2. ~/.zshenv - for updating the zsh environment variables handled by HyDE // this will be modified across updates
+export _JAVA_AWT_WM_NONREPARENTING=1
 
 #  Plugins 
 # oh-my-zsh plugins are loaded  in ~/.hyde.zshrc file, see the file for more information
@@ -27,19 +22,61 @@ source $ZSH/oh-my-zsh.sh
 # alias HotDown='cd ~/Documents/Scripting; ./Hotspot_Down.sh; cd ~'
 # alias HotUp='cd ~/Documents/Scripting; ./Hotspot.sh; cd ~'
 # alias ThemeGogh='cd ~/Documents/Scripting; ./Theme.sh; cd ~'
-alias ff='clear; fastfetch'
-alias ffidol='ff --config hypr'
-alias ffbelfast='ff --config hypr1'
-alias ffshizuru='ff --config hypr2'
-alias ffeibel='ff --config hypr3'
-alias ffmomina='ff --config hypr4'
-alias ffmiyamura='ff --config hypr5'
 
-fftheme() {
+ff() {
+    # 1. Always clear the screen
     clear
-    fastfetch --config "hypr$1"
+
+    # 2. Check if no argument was given (just 'ff')
+    if [ -z "$1" ]; then
+        fastfetch
+        return 0 # Exit the function successfully
+    fi
+
+    # 3. If an argument is given, decide which config to use
+    local config_name
+    case "$1" in
+        # --- Map your old alias names ---
+        "idol")
+            config_name="hypr"
+            ;;
+        "belfast")
+            config_name="hypr1"
+            ;;
+        "shizuru")
+            config_name="hypr2"
+            ;;
+        "eibel")
+            config_name="hypr3"
+            ;;
+        "momina")
+            config_name="hypr4"
+            ;;
+        "miyamura")
+            config_name="hypr5"
+            ;;
+        "genna")
+            config_name="genna"
+            ;;
+
+        # --- Catch-all for other arguments ---
+        *)
+            # 4. Check if the argument is a number (for your 'fftheme' logic)
+            # This uses Zsh's regex matching operator (=~)
+            if [[ "$1" =~ ^[0-9]+$ ]]; then
+                # If it's a number, build the 'hypr[number]' config name
+                config_name="hypr$1"
+            else
+                # 5. If it's not a special name or a number,
+                #    just use the argument directly as the config name.
+                config_name="$1"
+            fi
+            ;;
+    esac
+
+    # 6. Run fastfetch with the config we determined
+    fastfetch --config "$config_name"
 }
-# Usage: fftheme 2 -> equivalent to `fastfetch --config hypr2`
 
 eyota() {
     sudo mount -t ntfs-3g -o rw,uid=$(id -u),gid=$(id -g),iocharset=utf8 /dev/sda1 /mnt/readam || sudo mount -t ntfs-3g -o rw,uid=$(id -u),gid=$(id -g),iocharset=utf8 /dev/sdb1 /mnt/readam
@@ -106,6 +143,17 @@ neovim() {
   if command -v hyprctl &> /dev/null; then
     # If hyprctl exists, run the command for Hyprland and pass arguments
     hyprctl dispatch workspace emptynm && neovide "$@"
+
+  elif command -v swaymsg &> /dev/null; then
+    # --- Sway ---
+    # 1. Find the first unused workspace number.
+    #    (e.g., if 1, 2, 4 exist, this will find 3)
+    local empty_ws=$(swaymsg -t get_workspaces | jq '.[].num' | sort -n | awk 'BEGIN{n=1} {if ($1==n) n++} END{print n}')
+
+    # 2. Switch to that empty workspace (which creates it)
+    #    and then launch neovide.
+    swaymsg "workspace number $empty_ws" && neovide "$@"
+
   else
     # Otherwise, just run neovide with its flag and pass arguments
     neovide "$@"
@@ -123,6 +171,8 @@ alias runjava="java *.java"
 alias xenv='env SDL_VIDEODRIVER=x11'
 alias calc="qalc"
 alias exca="excalibur"
+alias batcheck1="upower -i /org/freedesktop/UPower/devices/battery_BAT1"
+alias batcheck0="upower -i /org/freedesktop/UPower/devices/battery_BAT0"
 
 # Configurations Shortcut
 alias zshconf="nv ~/.zshrc"
@@ -196,6 +246,9 @@ zdf() {
 alias sd='sudo systemctl'
 alias sdu='systemctl --user'
 
+alias nigger='sudo'
+alias niggedit='sudoedit'
+
 # just fun
 # alias fuck="sudo"
 
@@ -223,32 +276,17 @@ mpvws() {
 # unset __conda_setup
 # <<< conda initialize <<<
 
+export VISUAL="neovide --no-fork"
 export EDITOR="nvim"
+export TERMINAL="kitty"
 
 # For Hadoop
-export JAVA_HOME='/usr/lib/jvm/java-24-openjdk'
+export JAVA_HOME='/usr/lib/jvm/java-25-openjdk'
 # export JAVA_HOME='/usr/lib/jvm/java-11-openjdk'
 # export JAVA_HOME='/usr/lib/jvm/java-17-openjdk'
 # export JAVA_HOME='/usr/lib/jvm/java-21-openjdk'
 export PATH=$JAVA_HOME/bin:$PATH
-export HADOOP_HOME=~/Hadoop/hadoop-3.3.6/
-export PATH=$PATH:$HADOOP_HOME/bin
-export HADOOP_CONF_DIR=$HADOOP_HOME/etc/hadoop
-export HADOOP_CLASSPATH=$HADOOP_HOME/bin/hadoop
-export PATH="$PATH":"$HOME/.pub-cache/bin"
 
-# For Hive
-export HIVE_HOME=~/Hadoop/apache-hive-4.0.1-bin
-export PATH=$PATH:$HIVE_HOME/bin
-
-# For Pig
-export PIG_HOME=~/pig/
-export PATH=$PATH:~/pig/bin/
-export PIG_CLASSPATH=$HADOOP_HOME/etc/hadoop/
-
-# export ANDROID_HOME=~/Android
-# export ANDROID_SDK_ROOT=$ANDROID_HOME
-# export PATH=$ANDROID_HOME/cmdline-tools/latest/bin:$ANDROID_HOME/platform-tools:$PATH
 
 # For Android Studio
 export ANDROID_HOME=~/Android
@@ -263,16 +301,18 @@ if [ -f "$HOME/.secrets.zsh" ]; then
 fi
 
 # For Apache Spark
-export SPARK_HOME=~/spark-3.5.5-bin-hadoop3
-export PATH=$PATH:$SPARK_HOME/bin:$SPARK_HOME/sbin
-
 export PATH="$HOME/flutter/bin:$PATH"
-
+export PATH="$HOME/.platformio/penv/bin:$PATH"
 export PATH="$HOME/Development/Progrm/bash:$PATH"
+export PATH="$HOME/apache-jmeter-5.6.3/bin:$PATH"
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-PATH=/home/readam/.nimble/bin:/home/readam/Development/Progrm/bash:/home/readam/flutter/bin:/home/readam/Android/Sdk/emulator:/home/readam/Android/Sdk/platform-tools:/home/readam/Android/Sdk/cmdline-tools/latest/bin:/usr/lib/jvm/java-24-openjdk/bin:/home/readam/flutter/bin:/home/readam/Android/Sdk/emulator:/home/readam/Android/Sdk/platform-tools:/home/readam/Android/Sdk/cmdline-tools/latest/bin:/usr/lib/jvm/java-24-openjdk/bin:/home/readam/Development/Progrm/bash:/home/readam/flutter/bin:/home/readam/Android/Sdk/emulator:/home/readam/Android/Sdk/platform-tools:/home/readam/Android/Sdk/cmdline-tools/latest/bin:/usr/lib/jvm/java-24-openjdk/bin:/home/readam/Development/Progrm/bash:/home/readam/flutter/bin:/home/readam/Android/Sdk/emulator:/home/readam/Android/Sdk/platform-tools:/home/readam/Android/Sdk/cmdline-tools/latest/bin:/usr/lib/jvm/java-24-openjdk/bin:/usr/local/sbin:/usr/local/bin:/usr/bin:/var/lib/flatpak/exports/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl:/home/readam/Hadoop/hadoop-3.3.6//bin:/home/readam/.pub-cache/bin:/home/readam/Hadoop/apache-hive-4.0.1-bin/bin:/home/readam/pig/bin/:/home/readam/spark-3.5.5-bin-hadoop3/bin:/home/readam/spark-3.5.5-bin-hadoop3/sbin:/home/readam/Hadoop/hadoop-3.3.6//bin:/home/readam/.pub-cache/bin:/home/readam/Hadoop/apache-hive-4.0.1-bin/bin:/home/readam/pig/bin/:/home/readam/spark-3.5.5-bin-hadoop3/bin:/home/readam/spark-3.5.5-bin-hadoop3/sbin:/home/readam/Hadoop/hadoop-3.3.6//bin:/home/readam/.pub-cache/bin:/home/readam/Hadoop/apache-hive-4.0.1-bin/bin:/home/readam/pig/bin/:/home/readam/spark-3.5.5-bin-hadoop3/bin:/home/readam/spark-3.5.5-bin-hadoop3/sbin:/home/readam/Hadoop/hadoop-3.3.6//bin:/home/readam/.pub-cache/bin:/home/readam/Hadoop/apache-hive-4.0.1-bin/bin:/home/readam/pig/bin/:/home/readam/spark-3.5.5-bin-hadoop3/bin:/home/readam/spark-3.5.5-bin-hadoop3/sbin
-PATH=/home/readam/.nimble/bin:/home/readam/Development/Progrm/bash:/home/readam/flutter/bin:/home/readam/Android/Sdk/emulator:/home/readam/Android/Sdk/platform-tools:/home/readam/Android/Sdk/cmdline-tools/latest/bin:/usr/lib/jvm/java-24-openjdk/bin:/home/readam/flutter/bin:/home/readam/Android/Sdk/emulator:/home/readam/Android/Sdk/platform-tools:/home/readam/Android/Sdk/cmdline-tools/latest/bin:/usr/lib/jvm/java-24-openjdk/bin:/home/readam/Development/Progrm/bash:/home/readam/flutter/bin:/home/readam/Android/Sdk/emulator:/home/readam/Android/Sdk/platform-tools:/home/readam/Android/Sdk/cmdline-tools/latest/bin:/usr/lib/jvm/java-24-openjdk/bin:/home/readam/Development/Progrm/bash:/home/readam/flutter/bin:/home/readam/Android/Sdk/emulator:/home/readam/Android/Sdk/platform-tools:/home/readam/Android/Sdk/cmdline-tools/latest/bin:/usr/lib/jvm/java-24-openjdk/bin:/usr/local/sbin:/usr/local/bin:/usr/bin:/var/lib/flatpak/exports/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl:/home/readam/Hadoop/hadoop-3.3.6//bin:/home/readam/.pub-cache/bin:/home/readam/Hadoop/apache-hive-4.0.1-bin/bin:/home/readam/pig/bin/:/home/readam/spark-3.5.5-bin-hadoop3/bin:/home/readam/spark-3.5.5-bin-hadoop3/sbin:/home/readam/Hadoop/hadoop-3.3.6//bin:/home/readam/.pub-cache/bin:/home/readam/Hadoop/apache-hive-4.0.1-bin/bin:/home/readam/pig/bin/:/home/readam/spark-3.5.5-bin-hadoop3/bin:/home/readam/spark-3.5.5-bin-hadoop3/sbin:/home/readam/Hadoop/hadoop-3.3.6//bin:/home/readam/.pub-cache/bin:/home/readam/Hadoop/apache-hive-4.0.1-bin/bin:/home/readam/pig/bin/:/home/readam/spark-3.5.5-bin-hadoop3/bin:/home/readam/spark-3.5.5-bin-hadoop3/sbin:/home/readam/Hadoop/hadoop-3.3.6//bin:/home/readam/.pub-cache/bin:/home/readam/Hadoop/apache-hive-4.0.1-bin/bin:/home/readam/pig/bin/:/home/readam/spark-3.5.5-bin-hadoop3/bin:/home/readam/spark-3.5.5-bin-hadoop3/sbin
+# PATH=/home/readam/.nimble/bin:/home/readam/Development/Progrm/bash:/home/readam/flutter/bin:/home/readam/Android/Sdk/emulator:/home/readam/Android/Sdk/platform-tools:/home/readam/Android/Sdk/cmdline-tools/latest/bin:/usr/lib/jvm/java-24-openjdk/bin:/home/readam/flutter/bin:/home/readam/Android/Sdk/emulator:/home/readam/Android/Sdk/platform-tools:/home/readam/Android/Sdk/cmdline-tools/latest/bin:/usr/lib/jvm/java-24-openjdk/bin:/home/readam/Development/Progrm/bash:/home/readam/flutter/bin:/home/readam/Android/Sdk/emulator:/home/readam/Android/Sdk/platform-tools:/home/readam/Android/Sdk/cmdline-tools/latest/bin:/usr/lib/jvm/java-24-openjdk/bin:/home/readam/Development/Progrm/bash:/home/readam/flutter/bin:/home/readam/Android/Sdk/emulator:/home/readam/Android/Sdk/platform-tools:/home/readam/Android/Sdk/cmdline-tools/latest/bin:/usr/lib/jvm/java-24-openjdk/bin:/usr/local/sbin:/usr/local/bin:/usr/bin:/var/lib/flatpak/exports/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl:/home/readam/Hadoop/hadoop-3.3.6//bin:/home/readam/.pub-cache/bin:/home/readam/Hadoop/apache-hive-4.0.1-bin/bin:/home/readam/pig/bin/:/home/readam/spark-3.5.5-bin-hadoop3/bin:/home/readam/spark-3.5.5-bin-hadoop3/sbin:/home/readam/Hadoop/hadoop-3.3.6//bin:/home/readam/.pub-cache/bin:/home/readam/Hadoop/apache-hive-4.0.1-bin/bin:/home/readam/pig/bin/:/home/readam/spark-3.5.5-bin-hadoop3/bin:/home/readam/spark-3.5.5-bin-hadoop3/sbin:/home/readam/Hadoop/hadoop-3.3.6//bin:/home/readam/.pub-cache/bin:/home/readam/Hadoop/apache-hive-4.0.1-bin/bin:/home/readam/pig/bin/:/home/readam/spark-3.5.5-bin-hadoop3/bin:/home/readam/spark-3.5.5-bin-hadoop3/sbin:/home/readam/Hadoop/hadoop-3.3.6//bin:/home/readam/.pub-cache/bin:/home/readam/Hadoop/apache-hive-4.0.1-bin/bin:/home/readam/pig/bin/:/home/readam/spark-3.5.5-bin-hadoop3/bin:/home/readam/spark-3.5.5-bin-hadoop3/sbin
+# PATH=/home/readam/.nimble/bin:/home/readam/Development/Progrm/bash:/home/readam/flutter/bin:/home/readam/Android/Sdk/emulator:/home/readam/Android/Sdk/platform-tools:/home/readam/Android/Sdk/cmdline-tools/latest/bin:/usr/lib/jvm/java-24-openjdk/bin:/home/readam/flutter/bin:/home/readam/Android/Sdk/emulator:/home/readam/Android/Sdk/platform-tools:/home/readam/Android/Sdk/cmdline-tools/latest/bin:/usr/lib/jvm/java-24-openjdk/bin:/home/readam/Development/Progrm/bash:/home/readam/flutter/bin:/home/readam/Android/Sdk/emulator:/home/readam/Android/Sdk/platform-tools:/home/readam/Android/Sdk/cmdline-tools/latest/bin:/usr/lib/jvm/java-24-openjdk/bin:/home/readam/Development/Progrm/bash:/home/readam/flutter/bin:/home/readam/Android/Sdk/emulator:/home/readam/Android/Sdk/platform-tools:/home/readam/Android/Sdk/cmdline-tools/latest/bin:/usr/lib/jvm/java-24-openjdk/bin:/usr/local/sbin:/usr/local/bin:/usr/bin:/var/lib/flatpak/exports/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl:/home/readam/Hadoop/hadoop-3.3.6//bin:/home/readam/.pub-cache/bin:/home/readam/Hadoop/apache-hive-4.0.1-bin/bin:/home/readam/pig/bin/:/home/readam/spark-3.5.5-bin-hadoop3/bin:/home/readam/spark-3.5.5-bin-hadoop3/sbin:/home/readam/Hadoop/hadoop-3.3.6//bin:/home/readam/.pub-cache/bin:/home/readam/Hadoop/apache-hive-4.0.1-bin/bin:/home/readam/pig/bin/:/home/readam/spark-3.5.5-bin-hadoop3/bin:/home/readam/spark-3.5.5-bin-hadoop3/sbin:/home/readam/Hadoop/hadoop-3.3.6//bin:/home/readam/.pub-cache/bin:/home/readam/Hadoop/apache-hive-4.0.1-bin/bin:/home/readam/pig/bin/:/home/readam/spark-3.5.5-bin-hadoop3/bin:/home/readam/spark-3.5.5-bin-hadoop3/sbin:/home/readam/Hadoop/hadoop-3.3.6//bin:/home/readam/.pub-cache/bin:/home/readam/Hadoop/apache-hive-4.0.1-bin/bin:/home/readam/pig/bin/:/home/readam/spark-3.5.5-bin-hadoop3/bin:/home/readam/spark-3.5.5-bin-hadoop3/sbin
 
 eval "$(zoxide init zsh)"
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
