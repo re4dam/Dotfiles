@@ -18,3 +18,14 @@ map("n", "ngt", "<CMD> tabnew <CR>", { desc = "Creates a new Tab" })
 map("t", "<Esc>", [[<C-\><C-n>]], { desc = "Exit terminal mode" })
 
 map("n", "<leader>bn", "<CMD> enew <CR>", { desc = "Creates new empty buffer" })
+
+vim.g.neovide_scale_factor = 1.0
+local change_scale_factor = function(delta)
+  vim.g.neovide_scale_factor = vim.g.neovide_scale_factor * delta
+end
+map("n", "<C-=>", function()
+  change_scale_factor(1.25)
+end)
+map("n", "<C-->", function()
+  change_scale_factor(1 / 1.25)
+end)
