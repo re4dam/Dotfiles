@@ -55,8 +55,12 @@ ff() {
         "miyamura")
             config_name="hypr5"
             ;;
-        "genna")
-            config_name="genna"
+        "genna1")
+            config_name="genna-1"
+            ;;
+
+        "genna2")
+            config_name="genna-2"
             ;;
 
         # --- Catch-all for other arguments ---
@@ -173,6 +177,8 @@ alias calc="qalc"
 alias exca="excalibur"
 alias batcheck1="upower -i /org/freedesktop/UPower/devices/battery_BAT1"
 alias batcheck0="upower -i /org/freedesktop/UPower/devices/battery_BAT0"
+alias batt="sudo tlp-stat -b"
+alias batre="batt"
 
 # Configurations Shortcut
 alias zshconf="nv ~/.zshrc"
