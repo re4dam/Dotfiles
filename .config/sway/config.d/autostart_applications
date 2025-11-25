@@ -1,0 +1,60 @@
+# Auth with polkit-gnome:
+exec /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
+
+# Import environment variables for user systemd service manager
+exec systemctl --user import-environment DISPLAY WAYLAND_DISPLAY SWAYSOCK
+
+# Update dbus environments with display variables
+exec hash dbus-update-activation-environment 2>/dev/null && \
+     dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK
+
+# Idle configuration
+exec swayidle idlehint 1
+exec_always swayidle -w before-sleep "gtklock -d"
+
+# Desktop notifications
+exec mako
+
+# Start foot server
+exec_always --no-startup-id foot --server
+
+# Autotiling
+exec autotiling
+
+# cliphist
+exec wl-paste --type text --watch cliphist store
+exec wl-paste --type image --watch cliphist store
+     
+# Network Applet
+exec nm-applet --indicator
+
+# Firewall Applet
+exec sleep 2 && firewall-applet
+
+# Welcome App
+exec eos-welcome --startdelay=3
+
+# Sway Fader
+# exec python3 ~/.config/sway/scripts/swayfader.py
+
+# nwg-drawer
+exec_always nwg-drawer -r -c 7 -is 90 -mb 10 -ml 50 -mr 50 -mt 10
+
+# exec thumbnailer
+exec tumbler
+
+# exec image swww
+exec swww-daemon
+
+# exec Java window manager solution
+exec wmname LG3D
+
+# exec blue light filter
+exec wlsunset -l -6.92 -L 107.6 -t 4800 -T 6500
+
+# Make sure xdg-desktop-portal and its wlr backend are running
+exec --no-startup-id /usr/lib/xdg-desktop-portal-wlr -r &
+exec --no-startup-id /usr/lib/xdg-desktop-portal &
+
+# Import environment variables for systemd user services
+exec --no-startup-id systemctl --user import-environment XDG_SESSION_TYPE XDG_CURRENT_DESKTOP

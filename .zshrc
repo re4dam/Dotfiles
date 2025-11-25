@@ -86,7 +86,7 @@ eyota() {
     sudo mount -t ntfs-3g -o rw,uid=$(id -u),gid=$(id -g),iocharset=utf8 /dev/sda1 /mnt/readam || sudo mount -t ntfs-3g -o rw,uid=$(id -u),gid=$(id -g),iocharset=utf8 /dev/sdb1 /mnt/readam
 }
 lenovo() {
-    sudo mount -t ntfs-3g -o rw,uid=$(id -u),gid=$(id -g),iocharset=utf8 /dev/sda2 /mnt/takeaway || sudo mount -t ntfs-3g -o rw,uid=$(id -u),gid=$(id -g),iocharset=utf8 /dev/sdb2 /mnt/takeaway
+    sudo mount -t ntfs-3g -o rw,uid=$(id -u),gid=$(id -g),iocharset=utf8 /dev/sdb2 /mnt/takeaway || sudo mount -t ntfs-3g -o rw,uid=$(id -u),gid=$(id -g),iocharset=utf8 /dev/sda2 /mnt/takeaway
 }
 alias jakdam='sudo mount -t ntfs-3g -o rw,uid=$(id -u),gid=$(id -g),iocharset=utf8 /dev/nvme0n1p3 /mnt/windows'
 alias excalibur='tmux attach || tmux new'
@@ -179,6 +179,8 @@ alias batcheck1="upower -i /org/freedesktop/UPower/devices/battery_BAT1"
 alias batcheck0="upower -i /org/freedesktop/UPower/devices/battery_BAT0"
 alias batt="sudo tlp-stat -b"
 alias batre="batt"
+
+# alias steam="SDL_VIDEODRIVER=wayland steam"
 
 # Configurations Shortcut
 alias zshconf="nv ~/.zshrc"
