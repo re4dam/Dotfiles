@@ -141,7 +141,7 @@ set $powermenu ~/.config/sway/scripts/power_menu.sh
     # Split the window vertically
     bindsym $mod+v splitv
     # Split the window horizontally
-    bindsym $mod+b splith
+    bindsym $mod+g splith
 
     # Switch the current container between different layout styles
     bindsym $mod+s layout stacking
@@ -225,7 +225,7 @@ set $powermenu ~/.config/sway/scripts/power_menu.sh
     bindsym $mod+n exec dolphin
 
     # Launch the browser
-    bindsym $mod+o exec zen-browser
+    bindsym $mod+b exec zen-browser
 
     # Launch the clipboard manager
     bindsym $mod+Ctrl+v exec cliphist list | fuzzel -d -w 90 -l 30 -p "Select an entry to copy it to your clipboard buffer:"| cliphist decode | wl-copy
