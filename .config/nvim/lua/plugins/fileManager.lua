@@ -67,15 +67,8 @@ return {
       popup_border_style = "rounded",
       window = {
         position = "left",
-        width = 40,
+        width = 35,
         height = 30,
-        popup = {
-          size = {
-            height = "80%",
-            width = "40%",
-          },
-          position = "50%",
-        },
         float = {
           width = 60, -- Width of the floating window
           height = 30, -- Height of the floating window
