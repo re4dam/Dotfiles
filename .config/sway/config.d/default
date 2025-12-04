@@ -228,9 +228,9 @@ set $powermenu ~/.config/sway/scripts/power_menu.sh
     bindsym $mod+b exec zen-browser
 
     # Launch the clipboard manager
-    bindsym $mod+Ctrl+v exec cliphist list | fuzzel -d -w 90 -l 30 -p "Select an entry to copy it to your clipboard buffer:"| cliphist decode | wl-copy
+    bindsym $mod+Ctrl+v exec cliphist list | rofi -dmenu -theme ~/.config/rofi/launchers/type-1/style-5.rasi -p "Clipboard" | cliphist decode | wl-copy
     # Delete an entry from the clipboard manager
-    bindsym $mod+Ctrl+x exec cliphist list | fuzzel -d -w 90 -l 30 -t cc9393ff -S cc9393ff -p "Select an entry to delete it from cliphist:"| cliphist delete
+    bindsym $mod+Ctrl+x exec cliphist list | rofi -dmenu -theme ~/.config/rofi/launchers/type-1/style-5.rasi -p "Delete" | cliphist delete
     # Note: you can clear all cliphist entries by running `cliphist wipe`
 
 #
