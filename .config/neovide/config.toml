@@ -5,5 +5,5 @@ fork = true
 
 [font]
 normal = ["JetBrainsMono Nerd Font"]
-size = 12
+size = 14
 style = "Normal"
