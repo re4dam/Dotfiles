@@ -4,6 +4,24 @@ require("lspconfig").pyright.setup({
   capabilities = capabilities,
   filetypes = { "python" },
 })
+require("conform").setup({
+  formatters_by_ft = {
+    python = { "ruff", "black" },
+    lua = { "stylua" },
+    sh = { "shfmt" },
+    blade = { "blade-formatter" },
+  },
+})
+
+local parser_config = require("nvim-treesitter.parsers").get_parser_configs()
+parser_config.blade = {
+  install_info = {
+    url = "https://github.com/EmranMR/tree-sitter-blade",
+    files = { "src/parser.c" },
+    branch = "main",
+  },
+  filetype = "blade",
+}
 
 vim.lsp.enable("bashls")
 
@@ -54,8 +72,12 @@ return {
         "dart",
         "markdown",
         "rust",
+        "css",
       },
     },
+    vim.filetype.add({ pattern = {
+      ["*.blade.php"] = "blade",
+    } }),
   },
 
   -- add any tools you want to have installed below
@@ -74,6 +96,8 @@ return {
       },
     },
   },
+
+  -- this plugins features the blade filetype for php blade files
   {
     "jwalton512/vim-blade",
     config = function()

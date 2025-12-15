@@ -4,12 +4,6 @@ require("lspconfig").intelephense.setup({
   end,
 })
 
-require("lspconfig").phpactor.setup({
-  root_dir = function(fname)
-    return vim.fn.getcwd()
-  end,
-})
-
 return {
   {
     "williamboman/mason.nvim",

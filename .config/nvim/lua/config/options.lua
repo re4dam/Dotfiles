@@ -44,7 +44,7 @@ vim.o.title = true
 vim.o.titlestring = "Neovide [PID:%{getpid()}] - %t %m"
 
 -- Creates a command that takes one argument (the name)
-vim.api.nvim_create_user_command("NameWindow", function(opts)
+vim.api.nvim_create_user_command("NameTitle", function(opts)
   -- Sets the title to your argument, plus the filename and modified status
   vim.o.titlestring = opts.args .. " - %t %m"
 end, { nargs = 1, desc = "Set a custom name for the Neovide window title" })

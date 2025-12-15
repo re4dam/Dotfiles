@@ -227,6 +227,9 @@ set $powermenu ~/.config/sway/scripts/power_menu.sh
     # Launch the browser
     bindsym $mod+b exec zen-browser
 
+    # Launch obsidian
+    bindsym $mod+o exec obsidian
+
     # Launch the clipboard manager
     bindsym $mod+Ctrl+v exec cliphist list | rofi -dmenu -theme ~/.config/rofi/launchers/type-1/style-5.rasi -p "Clipboard" | cliphist decode | wl-copy
     # Delete an entry from the clipboard manager
