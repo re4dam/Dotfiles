@@ -13,15 +13,15 @@ require("conform").setup({
   },
 })
 
-local parser_config = require("nvim-treesitter.parsers").get_parser_configs()
-parser_config.blade = {
-  install_info = {
-    url = "https://github.com/EmranMR/tree-sitter-blade",
-    files = { "src/parser.c" },
-    branch = "main",
-  },
-  filetype = "blade",
-}
+-- local parser_config = require("nvim-treesitter.parsers").get_parser_configs()
+-- parser_config.blade = {
+--   install_info = {
+--     url = "https://github.com/EmranMR/tree-sitter-blade",
+--     files = { "src/parser.c" },
+--     branch = "main",
+--   },
+--   filetype = "blade",
+-- }
 
 vim.lsp.enable("bashls")
 
@@ -62,6 +62,7 @@ return {
         "typescript",
         "vim",
         "yaml",
+        "latex",
         "python",
         "c",
         "cpp",
@@ -70,7 +71,6 @@ return {
         "toml",
         "jsonc",
         "dart",
-        "markdown",
         "rust",
         "css",
       },
@@ -82,7 +82,7 @@ return {
 
   -- add any tools you want to have installed below
   {
-    "williamboman/mason.nvim",
+    "mason-org/mason.nvim",
     opts = {
       ensure_installed = {
         "stylua",
@@ -107,22 +107,6 @@ return {
   },
   {
     "mfussenegger/nvim-jdtls",
-  },
-  {
-    "nvim-flutter/flutter-tools.nvim",
-    lazy = false,
-    dependencies = {
-      "nvim-lua/plenary.nvim",
-      "stevearc/dressing.nvim", -- optional for vim.ui.select
-    },
-    config = true,
-  },
-  {
-    "MeanderingProgrammer/render-markdown.nvim",
-    dependencies = { "nvim-treesitter/nvim-treesitter", "echasnovski/mini.icons" }, -- if you use standalone mini plugins
-    ---@module 'render-markdown'
-    ---@type render.md.UserConfig
-    opts = {},
   },
   {
     "mfussenegger/nvim-dap",

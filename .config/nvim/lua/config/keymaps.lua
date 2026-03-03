@@ -5,7 +5,8 @@
 local map = vim.keymap.set
 
 -- map("n", ";", ":", { desc = "Mode enter command mode" })
--- map("i", "jk", "<ESC>", { desc = "Mode enter normal mode" })
+map("i", "jk", "<ESC>", { desc = "Mode enter normal mode" })
+map("i", "jj", "<ESC>", { desc = "Mode enter normal mode" })
 
 map("n", "<M-S-Up>", "<CMD> m-2 <CR>", { desc = "Linsel move up" })
 map("n", "<M-S-Down>", "<CMD> m+1 <CR>", { desc = "Linsel move down" })

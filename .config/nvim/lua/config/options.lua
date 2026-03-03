@@ -7,11 +7,6 @@ opt.tabstop = 4 -- Number of spaces that a <Tab> counts for
 opt.shiftwidth = 4 -- Number of spaces to use for each step of (auto)indent
 opt.expandtab = true -- Use spaces instead of tabs
 
--- require("onedark").setup({
---   style = "dark",
--- })
--- require("onedark").load()
-
 vim.opt.autoindent = false
 vim.opt.smartindent = false
 vim.opt.cindent = false
@@ -34,24 +29,24 @@ if vim.g.neovide then
   vim.g.neovide_theme = "auto"
 end
 
--- Enable setting the window title
-vim.o.title = true
-
--- Define the format for the window title
--- %{getpid()} gets the unique process ID
--- %t shows just the filename
--- %m shows a [+] if the file is modified
-vim.o.titlestring = "Neovide [PID:%{getpid()}] - %t %m"
-
--- Creates a command that takes one argument (the name)
-vim.api.nvim_create_user_command("NameTitle", function(opts)
-  -- Sets the title to your argument, plus the filename and modified status
-  vim.o.titlestring = opts.args .. " - %t %m"
-end, { nargs = 1, desc = "Set a custom name for the Neovide window title" })
-
---  Creates a command that resets the title of a window
-vim.api.nvim_create_user_command("ResetTitle", function()
-  vim.o.titlestring = "Neovide [PID:%{getpid()}] - %t %m"
-end, { nargs = 0, desc = "Reset the Neovide window title to the default" })
-
 vim.g.lazyvim_picker = "telescope"
+
+-- Create a group to prevent duplication
+local markdown_group = vim.api.nvim_create_augroup("MarkdownSettings", { clear = true })
+
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "markdown",
+  group = markdown_group,
+  callback = function()
+    -- 1. DISABLE DIAGNOSTICS (The Warnings)
+    -- This turns off the linter text and signs for the current buffer only
+    vim.diagnostic.enable(false, { bufnr = 0 })
+
+    -- 2. HIDE THE MARKDOWN SYNTAX (The # symbols)
+    -- This makes the 'render-markdown' plugin look clean
+    vim.opt_local.conceallevel = 2
+  end,
+})
+
+require("config.cursor")
+require("config.neovide-title")
