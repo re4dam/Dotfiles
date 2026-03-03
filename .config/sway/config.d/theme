@@ -10,6 +10,11 @@ default_border pixel 1
 
 # Blur config
 blur enable
+blur_passes 3
+blur_radius 5
+blur_noise 0.05
+
+layer_effects "waybar" blur enable; corner_radius 10
 
 corner_radius 5
 

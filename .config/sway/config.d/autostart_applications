@@ -8,12 +8,12 @@ exec systemctl --user import-environment DISPLAY WAYLAND_DISPLAY SWAYSOCK
 exec hash dbus-update-activation-environment 2>/dev/null && \
      dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK
 
-# Idle configuration
-exec swayidle idlehint 1
-exec_always swayidle -w before-sleep "gtklock -d"
+# old idle configuration
+# exec swayidle idlehint 1
+# exec_always swayidle -w before-sleep "gtklock -d"
 
 # Desktop notifications
-exec mako
+# exec mako
 
 # Start foot server
 exec_always --no-startup-id foot --server
@@ -48,6 +48,7 @@ exec swww-daemon
 
 # exec Java window manager solution
 exec wmname LG3D
+# exec_always bash -c "sleep 3 && wmname LG3D"
 
 # exec blue light filter
 exec wlsunset -l -6.92 -L 107.6 -t 4800 -T 6500
@@ -58,3 +59,6 @@ exec --no-startup-id /usr/lib/xdg-desktop-portal &
 
 # Import environment variables for systemd user services
 exec --no-startup-id systemctl --user import-environment XDG_SESSION_TYPE XDG_CURRENT_DESKTOP
+
+# swaync daemon
+exec swaync

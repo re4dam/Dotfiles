@@ -1,7 +1,10 @@
-# A more advanced idle and lock setup
-exec swayidle -w \
-    timeout 900 'swaylock -f' \
-    timeout 1200 'systemctl suspend' \
-    before-sleep 'swaylock -f' \
-    lock 'swaylock -f' \
-    resume 'swaymsg "output * dpms on"; swaymsg "input * enabled 1"'
+# In your 'idle' file
+exec_always {
+    killall swayidle
+    swayidle -w \
+        timeout 900 'hyprlock' \
+        timeout 1200 'systemctl suspend' \
+        before-sleep 'hyprlock' \
+        lock 'hyprlock' \
+        resume 'swaymsg "output * dpms on"; swaymsg "input * enabled 1"'
+}
