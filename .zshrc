@@ -100,6 +100,7 @@ alias cdprog='newhome; z Progrm/'
 alias cddpbo='newhome; z DPBO/'
 alias cdc='cdprog; z C/'
 alias cdmnt='z /mnt/'
+alias obsihome='z ~/Zaki-Adam/Home'
 
 devs() {
     z "$HOME/Development/$1" || echo "Directory not found!"
@@ -137,7 +138,7 @@ alias aur-upgrade='yay -Sua'        # Only upgrade AUR packages
 alias nvtest='hyprctl dispatch workspace r+1 && neovide'
 
 # Utilities
-neovim() {
+neov() {
   if command -v hyprctl &> /dev/null; then
     # If hyprctl exists, run the command for Hyprland and pass arguments
     hyprctl dispatch workspace emptynm && neovide "$@"
@@ -157,7 +158,7 @@ neovim() {
     neovide "$@"
   fi
 }
-alias nv="echo 'Starting Neovim' && neovim"
+# alias nv="echo 'Starting Neovim' && neovim"
 alias vim="nvim"
 alias snv="sudo nvim"
 alias clr="clear"
@@ -173,13 +174,15 @@ alias batcheck1="upower -i /org/freedesktop/UPower/devices/battery_BAT1"
 alias batcheck0="upower -i /org/freedesktop/UPower/devices/battery_BAT0"
 alias batt="sudo tlp-stat -b"
 alias batre="batt"
+alias helpwm="wmname LG3D; xprop -root _NET_WM_NAME"
+alias hyprpend="hyprlock & sleep 0.5 && systemctl suspend"
 
 # alias steam="SDL_VIDEODRIVER=wayland steam"
 
 # Configurations Shortcut
-alias zshconf="nv ~/.zshrc"
-alias bashconf="nv ~/.bashrc"
-alias tmuxconf="nv ~/.tmux.conf"
+alias zshconf="nvim ~/.zshrc"
+alias bashconf="nvim ~/.bashrc"
+alias tmuxconf="nvim ~/.tmux.conf"
 # alias Anvconf="cd ~/.config/nvim/; nv"
 # alias Ahyprconf="cd ~/.config/hypr/; nv"
 # alias Affconf="cd ~/.config/fastfetch/; nv"
@@ -278,7 +281,8 @@ mpvws() {
 # unset __conda_setup
 # <<< conda initialize <<<
 
-export VISUAL="neovide --no-fork"
+# export VISUAL="neovide --no-fork"
+export VISUAL="nvim"
 export EDITOR="nvim"
 export TERMINAL="kitty"
 
