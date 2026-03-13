@@ -12,6 +12,13 @@ require("conform").setup({
     blade = { "blade-formatter" },
   },
 })
+require("lspconfig").qmlls.setup({})
+require("mason").setup({
+  registries = {
+    "github:mason-org/mason-registry",
+    "github:Crashdummyy/mason-registry",
+  },
+})
 
 -- local parser_config = require("nvim-treesitter.parsers").get_parser_configs()
 -- parser_config.blade = {
@@ -148,18 +155,10 @@ return {
       vim.keymap.set("n", "<leader>db", dap.toggle_breakpoint, { desc = "Toggle Breakpoint" })
     end,
   },
-  -- {
-  --   "haydenkz/nvim-wingman",
-  --   lazy = false, -- Load immediately (recommended for real-time suggestions)
-  --   dependencies = { "nvim-lua/plenary.nvim" }, -- Required for HTTP requests
-  --   config = function()
-  --     require("wingman").setup({
-  --       api_key = "your-grok-api-key", -- Replace with your xAI Grok API key
-  --       useOllama = false, -- Set to true to use Ollama instead of Grok
-  --       model = "grok-2-latest", -- Specify the model to use
-  --       ollama_url = "http://localhost:11434", -- Ollama API endpoint
-  --       grok_url = "https://api.x.ai/v1/chat/completions", -- Grok API endpoint
-  --     })
-  --   end,
-  -- },
+  "seblyng/roslyn.nvim",
+  ---@module 'roslyn.config'
+  ---@type RoslynNvimConfig
+  opts = {
+    -- your configuration comes here; leave empty for default settings
+  },
 }

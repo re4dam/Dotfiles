@@ -225,7 +225,8 @@ bindsym {
 bindsym $mod+n exec thunar
 
 # Launch the browser
-bindsym $mod+b exec zen-browser
+bindsym $mod+z exec zen-browser
+bindsym $mod+b exec brave
 
 # Launch obsidian
 bindsym $mod+o exec obsidian
