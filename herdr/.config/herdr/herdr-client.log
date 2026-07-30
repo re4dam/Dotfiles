@@ -1,0 +1,14 @@
+2026-07-29T09:06:56.399783Z  INFO herdr::logging: herdr starting event="app.startup" subsystem="client" outcome="started" pid=22258
+2026-07-29T09:06:56.399870Z  INFO herdr::client: connecting to server path=/home/readam/.config/herdr/herdr-client.sock
+2026-07-29T09:06:56.646940Z  INFO herdr::client: handshake succeeded version=17 encoding=SemanticFrame
+2026-07-29T09:07:39.271712Z  INFO herdr::logging: herdr exiting event="app.shutdown" subsystem="client" outcome="completed" pid=22258
+2026-07-29T09:07:41.484904Z  INFO herdr::logging: herdr starting event="app.startup" subsystem="client" outcome="started" pid=22702
+2026-07-29T09:07:41.484963Z  INFO herdr::client: connecting to server path=/home/readam/.config/herdr/herdr-client.sock
+2026-07-29T09:07:41.515989Z  INFO herdr::client: handshake succeeded version=17 encoding=SemanticFrame
+2026-07-29T09:27:52.056099Z  INFO herdr::logging: herdr exiting event="app.shutdown" subsystem="client" outcome="completed" pid=22702
+2026-07-29T09:27:54.968379Z  INFO herdr::logging: herdr starting event="app.startup" subsystem="client" outcome="started" pid=25949
+2026-07-29T09:27:54.968483Z  INFO herdr::client: connecting to server path=/home/readam/.config/herdr/herdr-client.sock
+2026-07-29T09:27:55.187920Z  INFO herdr::client: handshake succeeded version=17 encoding=SemanticFrame
+2026-07-30T03:41:45.430974Z  INFO herdr::logging: herdr starting event="app.startup" subsystem="client" outcome="started" pid=4776
+2026-07-30T03:41:45.431054Z  INFO herdr::client: connecting to server path=/home/readam/.config/herdr/herdr-client.sock
+2026-07-30T03:41:45.490543Z  INFO herdr::client: handshake succeeded version=17 encoding=SemanticFrame

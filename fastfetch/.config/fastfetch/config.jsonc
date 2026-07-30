@@ -1,0 +1,173 @@
+// ~/.config/fastfetch/config.jsonc
+//
+// A sleek, dev-focused fastfetch config for Fedora.
+// Requires a Nerd Font in your terminal for icons to render correctly
+// (e.g. "FiraCode Nerd Font", "JetBrainsMono Nerd Font").
+//
+// Design note: the box border wraps ONLY the key/label column (fixed
+// 10-char content width, auto-padded so every row lines up
+// regardless of icon/label length). Values are printed plainly to the
+// right of the box, unboxed, as requested.
+//
+// Usage: fastfetch --config ~/.config/fastfetch/config.jsonc
+{
+    "$schema": "https://github.com/fastfetch-cli/fastfetch/raw/dev/doc/json_schema.json",
+    // ── Logo ──────────────────────────────────────────────────────────
+    // Full original Fedora logo (not the compact "small" variant).
+    "logo": {
+        "type": "builtin",
+        "source": "fedora",
+        "color": {
+            "1": "34",
+            "2": "36"
+        },
+        "padding": {
+            "top": 1,
+            "right": 2
+        }
+    },
+    // ── General display rules ────────────────────────────────────────
+    "display": {
+        "separator": "  ",
+        "color": {
+            "keys": "36",
+            "title": "34"
+        },
+        "key": {
+            "width": 16
+        },
+        "percent": {
+            "type": [
+                "num",
+                "bar"
+            ]
+        },
+        "bar": {
+            "width": 16,
+            "char": {
+                "elapsed": "─",
+                "total": "╌"
+            },
+            "border": {
+                "left": "[",
+                "right": "]"
+            }
+        }
+    },
+    "modules": [
+        {
+            "type": "title",
+            "color": {
+                "user": "35",
+                "at": "37",
+                "host": "35"
+            }
+        },
+        {
+            "type": "custom",
+            "format": "\u001b[36m╭────────────╮"
+        },
+        {
+            "type": "os",
+            "key": "│  OS        │",
+            "keyColor": "blue"
+        },
+        {
+            "type": "kernel",
+            "key": "│ 󰌢 Kernel   │",
+            "keyColor": "blue"
+        },
+        {
+            "type": "host",
+            "key": "│ 󰟀 Host     │",
+            "keyColor": "blue"
+        },
+        {
+            "type": "uptime",
+            "key": "│ 󰅐 Uptime   │",
+            "keyColor": "blue"
+        },
+        {
+            "type": "packages",
+            "key": "│ 󰏖 Packages │",
+            "keyColor": "blue"
+        },
+        {
+            "type": "custom",
+            "format": "\u001b[36m├────────────┤"
+        },
+        {
+            "type": "shell",
+            "key": "│  Shell     │",
+            "keyColor": "cyan"
+        },
+        {
+            "type": "terminal",
+            "key": "│  Terminal  │",
+            "keyColor": "cyan"
+        },
+        {
+            "type": "editor",
+            "key": "│  Editor    │",
+            "keyColor": "cyan"
+        },
+        {
+            "type": "wm",
+            "key": "│ 󰧨 WM       │",
+            "keyColor": "cyan"
+        },
+        {
+            "type": "de",
+            "key": "│ 󰇄 DE       │",
+            "keyColor": "cyan"
+        },
+        {
+            "type": "custom",
+            "format": "\u001b[36m├────────────┤"
+        },
+        {
+            "type": "cpu",
+            "key": "│ 󰻠 CPU      │",
+            "keyColor": "magenta",
+            "format": "{1} ({3}) @ {7}"
+        },
+        {
+            "type": "gpu",
+            "key": "│ 󰢮 GPU      │",
+            "keyColor": "magenta"
+        },
+        {
+            "type": "memory",
+            "key": "│ 󰍛 Memory   │",
+            "keyColor": "magenta"
+        },
+        {
+            "type": "swap",
+            "key": "│ 󰓡 Swap     │",
+            "keyColor": "magenta"
+        },
+        {
+            "type": "disk",
+            "key": "│ 󰋊 Disk     │",
+            "keyColor": "magenta",
+            "folders": "/"
+        },
+        {
+            "type": "localip",
+            "key": "│ 󰩟 LocalIP  │",
+            "keyColor": "magenta",
+            "showIpv4": true,
+            "showIpv6": false
+        },
+        {
+            "type": "custom",
+            "format": "\u001b[36m╰────────────╯"
+        },
+        "break",
+        {
+            "type": "colors",
+            "paddingLeft": 2,
+            "symbol": "circle"
+        }
+    ]
+}
