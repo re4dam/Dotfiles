@@ -7,6 +7,9 @@ show_agent_labels_on_pane_borders = false
 name = "one-dark"
 auto_switch = false
 
+[experimental]
+kitty_graphics = true
+
 [keys]
 prefix = "ctrl+space"
 
